@@ -7,6 +7,9 @@ plugins {
 
 kotlin {
     listOf(
+        macosArm64(),
+        iosArm64(),
+        iosSimulatorArm64(),
         watchosArm32(),
         watchosArm64(),
         watchosSimulatorArm64()
@@ -22,11 +25,16 @@ kotlin {
     @OptIn(ExperimentalKotlinGradlePluginApi::class) //
     applyDefaultHierarchyTemplate {
         common {
+            group("macos") { withMacos() }
+            group("ios") { withIos() }
             group("watchos") { withWatchos() }
             group("x32") {
                 withWatchosArm32()
             }
             group("x64") {
+                group("macos")
+                group("ios")
+
                 // Correct configuration would be:
                 //withWatchosArm64()
                 //withWatchosSimulatorArm64()
