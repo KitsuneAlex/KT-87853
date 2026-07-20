@@ -6,9 +6,19 @@ plugins {
 }
 
 kotlin {
-    watchosArm32()
-    watchosArm64()
-    watchosSimulatorArm64()
+    listOf(
+        watchosArm32(),
+        watchosArm64(),
+        watchosSimulatorArm64()
+    ).forEach { target ->
+        target.compilations {
+            named("main") {
+                cinterops {
+                    create("test")
+                }
+            }
+        }
+    }
     @OptIn(ExperimentalKotlinGradlePluginApi::class) //
     applyDefaultHierarchyTemplate {
         common {
